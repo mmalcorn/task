@@ -30,14 +30,12 @@
         return $silex_app['twig']->render('create_task.html.twig', array('new_task' => $task));
     });
 
-    $silex_app->post('/delete_tasks', function(){
+    $silex_app->post('/delete_tasks', function() use ($silex_app){
 
         Task::deleteAll();
 
-        return "
-            <h1>List Cleared!</h1>
-            <p><a href='/'>Home</a></p>
-        ";
+        //NOTE: template doesn't need any other information (i.e variables), so we will not pass in an array: 
+        return $silex_app['twig']->render('delete_tasks.html.twig');
     });
 
     return $silex_app;
