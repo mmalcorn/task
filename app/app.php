@@ -29,5 +29,16 @@
 
         return $output;
     });
+
+    $silex_app->post("/tasks", function() {
+        $task = new Task($_POST['description']);
+        $task->save();
+        return "
+            <h1>You created a task!</h1>
+            <p>" . $task->getDescription() . "</p>
+            <p><a href='/'>View your list of things to do.</a></p>
+        ";
+    });
+
     return $silex_app;
  ?>
