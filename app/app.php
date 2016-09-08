@@ -11,32 +11,29 @@
 
     $silex_app = new Silex\Application();
 
+    //NOTE: link twig
     $silex_app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path' => __DIR__ . '/../views'));
 
-    $silex_app->get("/", function(){
 
-        $output = "";
+    //NOTE: Make sure that you inlcude the use ($silex_app).
+    //      this is what allows us to call the render method
+    $silex_app->get("/", function() use ($silex_app) {
+        //  <form action='/tasks' method='post'>
+        //      <label for='description'>Task Description</label>
+        //      <input id='description' name='description' type='text'>
+        //
+        //      <button type='submit'>Add task</button>
+        // </form>
+        // ";
+        //
+        // $output = $output . "
+        // <form action='/delete_tasks' method='post'>
+        //     <button type='submit'>delete</button>
+        // </form>
+        // ";
 
-        foreach (Task::getAll() as $task){
-            $output = $output . "<p>" . $task->getDescription() . "</p>";
-        }
-
-        $output = $output . "
-         <form action='/tasks' method='post'>
-             <label for='description'>Task Description</label>
-             <input id='description' name='description' type='text'>
-
-             <button type='submit'>Add task</button>
-        </form>
-        ";
-
-        $output = $output . "
-        <form action='/delete_tasks' method='post'>
-            <button type='submit'>delete</button>
-        </form>
-        ";
-
-        return $silex_app['twig']->render('tasks.html.twig');
+        //NOTE: give twig all the variables it needs
+        return $silex_app['twig']->render('tasks.html.twig', array('tasks' => Task::getAll()));
     });
 
     $silex_app->post("/tasks", function() {

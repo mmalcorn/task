@@ -1,0 +1,16 @@
+<html>
+    <head>
+        <title>To Do List</title>
+    </head>
+    <body>
+        <h1>To Do List</h1>
+        <p>DEAR TWIG SCREW YOU, LOVE ALEX</p>
+        <p>To display information you need two curly braces object.method</p>
+        <p>Note the lack of freaking parentheses after the function</p>
+        {% if tasks is not empty %}
+            {% for current_task in tasks %}
+                <li> {{ current_task.getDescription }} </li>
+            {% endfor %}
+        {% endif %}
+    </body>
+</html>
