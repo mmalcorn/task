@@ -10,6 +10,9 @@
     }
 
     $silex_app = new Silex\Application();
+
+    $silex_app->register(new Silex\Provider\TwigServiceProvider(), array('twig.path' => __DIR__ . '/../views'));
+
     $silex_app->get("/", function(){
 
         $output = "";
@@ -33,7 +36,7 @@
         </form>
         ";
 
-        return $output;
+        return $silex_app['twig']->render('tasks.html.twig');
     });
 
     $silex_app->post("/tasks", function() {
